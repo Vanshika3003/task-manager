@@ -27,13 +27,18 @@ router.get('/users', (req, res) => {
 });
 router.post('/users/login', async (req, res) => {
   try {
+    console.log('I am in login...', req.body.password);
+
     const User = await user.findByCredentials(
       req.body.email,
       req.body.password
     );
     res.send(User);
   } catch (e) {
-    res.status(400).send(e);
+    console.log('Error in login...', e);
+    res.status(400).send({
+      e: e.Error,
+    });
   }
 });
 router.get('/users/:id', (req, res) => {
